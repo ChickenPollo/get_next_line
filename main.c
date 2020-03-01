@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luimarti <luimarti@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/28 13:24:23 by luimarti          #+#    #+#             */
-/*   Updated: 2020/02/29 20:52:50 by luimarti         ###   ########.fr       */
+/*   Created: 2020/02/29 20:55:19 by luimarti          #+#    #+#             */
+/*   Updated: 2020/02/29 21:19:52 by luimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "get_next_line.h"
+#include <stdio.h>
+#include <fcntl.h>
 
-# include "libft/libft.h"
-# include <stdlib.h>
-# include <stdio.h>
-
-# define BUFF_SIZE 32
-
-typedef	struct	s_file
+int main(void)
 {
-	int				fd;
-	char			*buffer;
-	struct s_file	*next;
-}				t_file;
+	const int fd = open("test", O_RDONLY);
+	printf("fd: %d\n", fd);
 
-int				get_next_line(const int fd, char **line);
+	char *line;
 
-#endif
+	int result = get_next_line(fd, &line);
+
+	printf("%s\n", line);
+
+	if (close(fd < 0))
+	{
+		printf("Error closing\n");
+		exit(1);
+	}
+	return (0);
+}
