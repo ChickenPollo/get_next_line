@@ -14,15 +14,20 @@
 # define GET_NEXT_LINE_H
 
 # include "libft/libft.h"
-# include <stdlib.h>
-# include <stdio.h>
+# include <fcntl.h>
+# include <unistd.h>
 
 # define BUFF_SIZE 32
+# define IS_ALLO(x) if (!x) return (-1);
+# define CONT(x) ((t_file*)((x->content)))->content
+# define START(x) ((t_file*)((x->content)))->start_content
+
 
 typedef	struct	s_file
 {
 	int				fd;
-	char			*buffer;
+	char			*content;
+	char			*start_content;
 	struct s_file	*next;
 }				t_file;
 
