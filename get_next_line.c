@@ -6,7 +6,7 @@
 /*   By: luimarti <luimarti@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 13:27:48 by luimarti          #+#    #+#             */
-/*   Updated: 2020/02/29 21:19:50 by luimarti         ###   ########.fr       */
+/*   Updated: 2020/03/02 20:49:16 by luimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ t_file	*get_fd_buffer(int fd, t_file *descriptors)
 */
 int	get_next_line(const int fd, char **line)
 {
-	static char		*past;
+	static char		*fds[255];
 	char			buf[BUFF_SIZE + 1];
-	size_t			ret;
+	int				ret;
 	char			*temp;
 
 	if (fd < 0 || line == NULL)
@@ -40,14 +40,15 @@ int	get_next_line(const int fd, char **line)
 	while (ret = read(fd, buf, BUFF_SIZE))
 	{
 		buf[ret] = '\0';
+		if (fds[fd] == NULL)
+			fds[fd] = ft_strnew(1);
+		temp = ft_strjoin(fds[fd], buf);
+		free(fds[fd]);
+		fds[fd] = temp;
 		if (ft_strchr(buf, '\n'))
-		{
-			*line = buf;
 			break;
-		}
-		else
-		{
-
-		}
 	}
+	if (ret < 0)
+		return (-1);
+	
 }
