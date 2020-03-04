@@ -6,7 +6,7 @@
 /*   By: luimarti <luimarti@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 13:24:23 by luimarti          #+#    #+#             */
-/*   Updated: 2020/03/03 19:29:44 by luimarti         ###   ########.fr       */
+/*   Updated: 2020/03/03 19:18:17 by luimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 
 # include "libft/libft.h"
 # include <stdlib.h>
-# include <stdio.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <limits.h>
 
 # define BUFF_SIZE 32
 

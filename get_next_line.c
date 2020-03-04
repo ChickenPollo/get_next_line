@@ -6,11 +6,12 @@
 /*   By: luimarti <luimarti@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 13:27:48 by luimarti          #+#    #+#             */
-/*   Updated: 2020/03/03 19:44:52 by luimarti         ###   ########.fr       */
+/*   Updated: 2020/03/03 19:34:09 by luimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
 /*
 t_file	*get_fd_buffer(int fd, t_file *descriptors)
 {
@@ -29,7 +30,7 @@ t_file	*get_fd_buffer(int fd, t_file *descriptors)
 }
 */
 
-static int	ft_get_line( const int fd, char **line, char **fds, int ret)
+static int	ft_get_line(const int fd, char **line, char **fds, int ret)
 {
 	char	*temp;
 	int		len;
@@ -58,14 +59,14 @@ static int	ft_get_line( const int fd, char **line, char **fds, int ret)
 
 int			get_next_line(const int fd, char **line)
 {
-	static char		*fds[255];
+	static char		*fds[OPEN_MAX];
 	char			buf[BUFF_SIZE + 1];
 	int				ret;
 	char			*temp;
 
 	if (fd < 0 || line == NULL)
 		return (-1);
-	while (ret = read(fd, buf, BUFF_SIZE))
+	while ((ret = read(fd, buf, BUFF_SIZE)))
 	{
 		buf[ret] = '\0';
 		if (fds[fd] == NULL)
@@ -74,7 +75,7 @@ int			get_next_line(const int fd, char **line)
 		free(fds[fd]);
 		fds[fd] = temp;
 		if (ft_strchr(buf, '\n'))
-			break;
+			break ;
 	}
 	if (ret < 0)
 		return (-1);
