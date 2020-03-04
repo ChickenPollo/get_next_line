@@ -14,16 +14,15 @@
 # define GET_NEXT_LINE_H
 
 # include "libft/libft.h"
-# include <fcntl.h>
-# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
 
 # define BUFF_SIZE 32
 
 typedef	struct	s_file
 {
 	int				fd;
-	char			*content;
-	char			*start_content;
+	char			*buffer;
 	struct s_file	*next;
 }				t_file;
 
