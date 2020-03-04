@@ -6,7 +6,7 @@
 /*   By: luimarti <luimarti@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 13:24:23 by luimarti          #+#    #+#             */
-/*   Updated: 2020/02/29 20:52:50 by luimarti         ###   ########.fr       */
+/*   Updated: 2020/03/03 19:29:44 by luimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,6 @@
 # include <unistd.h>
 
 # define BUFF_SIZE 32
-# define IS_ALLO(x) if (!x) return (-1);
-# define CONT(x) ((t_file*)((x->content)))->content
-# define START(x) ((t_file*)((x->content)))->start_content
-
 
 typedef	struct	s_file
 {
