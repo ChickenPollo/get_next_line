@@ -6,7 +6,7 @@
 /*   By: luimarti <luimarti@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 13:27:48 by luimarti          #+#    #+#             */
-/*   Updated: 2020/03/02 20:49:16 by luimarti         ###   ########.fr       */
+/*   Updated: 2020/03/03 19:44:52 by luimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,35 @@ t_file	*get_fd_buffer(int fd, t_file *descriptors)
 	new_descriptor->next = NULL;
 }
 */
-int	get_next_line(const int fd, char **line)
+
+static int	ft_get_line( const int fd, char **line, char **fds, int ret)
+{
+	char	*temp;
+	int		len;
+
+	len = 0;
+	while (fds[fd][len] != '\n' && fds[fd][len] != '\0')
+		len++;
+	if (fds[fd][len] == '\n')
+	{
+		*line = ft_strsub(fds[fd], 0, len);
+		temp = ft_strdup(fds[fd] + len + 1);
+		free(fds[fd]);
+		fds[fd] = temp;
+		if (fds[fd][0] == '\0')
+			ft_strdel(&fds[fd]);
+	}
+	else if (fds[fd][len] == '\0')
+	{
+		if (ret == BUFF_SIZE)
+			return (get_next_line(fd, line));
+		*line = ft_strdup(fds[fd]);
+		ft_strdel(&fds[fd]);
+	}
+	return (1);
+}
+
+int			get_next_line(const int fd, char **line)
 {
 	static char		*fds[255];
 	char			buf[BUFF_SIZE + 1];
@@ -50,5 +78,7 @@ int	get_next_line(const int fd, char **line)
 	}
 	if (ret < 0)
 		return (-1);
-	
+	else if (ret == 0 && (fds[fd] == NULL || fds[fd][0] == '\0'))
+		return (0);
+	return (ft_get_line(fd, line, fds, ret));
 }
