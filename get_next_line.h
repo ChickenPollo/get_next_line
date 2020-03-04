@@ -6,7 +6,7 @@
 /*   By: luimarti <luimarti@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 13:24:23 by luimarti          #+#    #+#             */
-/*   Updated: 2020/03/03 19:18:17 by luimarti         ###   ########.fr       */
+/*   Updated: 2020/03/03 19:41:24 by luimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 typedef	struct	s_file
 {
 	int				fd;
-	char			*buffer;
+	char			*buf;
 	struct s_file	*next;
 }				t_file;
 

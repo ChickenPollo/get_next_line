@@ -6,31 +6,35 @@
 /*   By: luimarti <luimarti@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 13:27:48 by luimarti          #+#    #+#             */
-/*   Updated: 2020/03/03 19:34:09 by luimarti         ###   ########.fr       */
+/*   Updated: 2020/03/03 20:33:42 by luimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-/*
-t_file	*get_fd_buffer(int fd, t_file *descriptors)
-{
-	t_file	*new_descriptor;
-	while (descriptors->next)
-	{
-		if (descriptors->fd == fd)
-			return (descriptors);
-		descriptors = descriptors->next;
-	}
-	if (!(new_descriptor = (t_file *)malloc(sizeof(t_file))))
-		return (NULL);
-	descriptors->next = new_descriptor;
-	new_descriptor->fd = fd;
-	new_descriptor->next = NULL;
-}
-*/
 
-static int	ft_get_line(const int fd, char **line, char **fds, int ret)
+static t_file	*bufat(int fd, t_file **bufs)
+{
+	t_file	*new_buf;
+	t_file	*ptr;
+
+	ptr = *bufs;
+	while (ptr != NULL)
+	{
+		if (ptr->fd == fd)
+			return (ptr);
+		ptr = ptr->next;
+	}
+	if (!(new_buf = (t_file *)malloc(sizeof(t_file))))
+		return (NULL);
+	new_buf->fd = fd;
+	new_buf->next = *bufs;
+	*bufs = new_buf;
+	return (new_buf);
+}
+
+
+static int		ft_get_line(const int fd, char **line, char **fds, int ret)
 {
 	char	*temp;
 	int		len;
@@ -57,7 +61,7 @@ static int	ft_get_line(const int fd, char **line, char **fds, int ret)
 	return (1);
 }
 
-int			get_next_line(const int fd, char **line)
+int				get_next_line(const int fd, char **line)
 {
 	static char		*fds[OPEN_MAX];
 	char			buf[BUFF_SIZE + 1];
