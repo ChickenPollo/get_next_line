@@ -6,33 +6,11 @@
 /*   By: luimarti <luimarti@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 13:27:48 by luimarti          #+#    #+#             */
-/*   Updated: 2020/03/03 20:33:42 by luimarti         ###   ########.fr       */
+/*   Updated: 2020/03/04 15:29:44 by luimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-
-static t_file	*bufat(int fd, t_file **bufs)
-{
-	t_file	*new_buf;
-	t_file	*ptr;
-
-	ptr = *bufs;
-	while (ptr != NULL)
-	{
-		if (ptr->fd == fd)
-			return (ptr);
-		ptr = ptr->next;
-	}
-	if (!(new_buf = (t_file *)malloc(sizeof(t_file))))
-		return (NULL);
-	new_buf->fd = fd;
-	new_buf->next = *bufs;
-	*bufs = new_buf;
-	return (new_buf);
-}
-
 
 static int		ft_get_line(const int fd, char **line, char **fds, int ret)
 {
