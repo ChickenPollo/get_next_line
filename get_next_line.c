@@ -6,7 +6,7 @@
 /*   By: luimarti <luimarti@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 13:27:48 by luimarti          #+#    #+#             */
-/*   Updated: 2020/03/04 15:29:44 by luimarti         ###   ########.fr       */
+/*   Updated: 2020/03/05 13:07:15 by luimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ int				get_next_line(const int fd, char **line)
 	int				ret;
 	char			*temp;
 
-	if (fd < 0 || line == NULL)
+	if (fd < 0 || line == NULL || fd >= OPEN_MAX)
 		return (-1);
-	while ((ret = read(fd, buf, BUFF_SIZE)))
+	while ((ret = read(fd, buf, BUFF_SIZE)) > 0)
 	{
 		buf[ret] = '\0';
 		if (fds[fd] == NULL)
